@@ -1,0 +1,45 @@
+{
+	"extends": ["next/core-web-vitals", "prettier"],
+	"plugins": ["import", "unused-imports", "@typescript-eslint"],
+	"rules": {
+		// import文をアルファベット順に並べ替え
+		"import/order": [
+			"error",
+			{
+				"groups": ["builtin", "external", "parent", "sibling", "index", "object", "type"],
+				"pathGroups": [
+					{
+						"pattern": "{react,react-dom/**,react-router-dom}",
+						"group": "builtin",
+						"position": "before"
+					},
+					{
+						"pattern": "@src/**",
+						"group": "parent",
+						"position": "before"
+					}
+				],
+				"pathGroupsExcludedImportTypes": ["builtin"],
+
+				"alphabetize": {
+					"order": "asc",
+					"caseInsensitive": true
+				},
+				"newlines-between": "always"
+			}
+		],
+		"@typescript-eslint/consistent-type-imports": [
+			"error",
+			{
+				"prefer": "type-imports"
+			}
+		],
+
+		// 未使用のimportをエラーとして報告
+		"unused-imports/no-unused-imports": "error"
+		// 未使用の変数をエラーとして報告（import文にも適用されます）
+		// "no-unused-vars": "error"
+		// TODO: @torukino ↑これの設定を追加してしまうと．catalystで指定されている children が未使用として以下のエラーになる．できれば外して欲しいです．
+		// Error: 'children' is defined but never used.  no-unused-vars
+	}
+}
